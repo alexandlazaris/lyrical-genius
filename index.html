@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Song lyrics</title>
+<script type="text/javascript">
+    var myVar="hello"
+    function showAlert() 
+    { 
+        var artistParam = document.getElementById("artist").value 
+        var trackParam = document.getElementById("track").value
+        var fullParm = artistParam + "/" + trackParam 
+        var url = "https://api.lyrics.ovh/v1/"
+        var requestUrl = url + fullParm
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 400 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText)
+            var responseText = xmlHttp.responseText
+            //JSON.stringify(responseText, null, ' ')
+            var node = document.getElementById('node').innerHTML = responseText
+            //node.innerHTML('<p>some dynamic html</p>')
+            //get text to speech api and sing lyrics of song, maybe use Houndify
+        }
+        xmlHttp.open("GET", requestUrl, true);
+        xmlHttp.send(null);
+    }
+</script>
+</head>
+<div>
+    <input id="artist" placeholder="Input artist name">e.g "justin timberlake"</input>
+    <br>
+    <input id="track"  placeholder="Input track name">e.g "say something"</input>
+</div>
+<button onclick="showAlert()">Go</button>
+<pre id="node" aria-placeholder="response test"></pre>
+</html>
